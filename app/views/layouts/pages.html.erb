@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BuyFlix</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><%= link_to "Intro", pages_path('intro') %></li>
+      <li><%= link_to "Geolocation", pages_path('geo') %></li>
+      <li><%= link_to "jQuery", pages_path('jquery') %></li>
+      <li><%= link_to "XHR", pages_path('xhr') %></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <% if flash["notice"].present? %>
+      <p><%= flash["notice"] %></p>
+    <% end %>
+
+    <%= yield %>
+
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+#board {
+  border: thick solid #1D7373;
+  height: 576px;
+  margin: 36px auto;
+  width: 576px;
+}
+.square {
+  color: #000;
+  float: left;
+  font-size: 300%;
+  height: 72px;
+  text-align: center;
+  width: 72px;
+}
+
+.rank {
+  clear: both;
+}
+
+.dark_square {
+  background: #CCC;
+}
+
+.last_move {
+  text-shadow: -1px 0 red, 0 1px red, 1px 0 red, 0 -1px red, 1px 1px 2px #333;
+}
+
+#easter-egg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 128px;
+  width: 160px;
+}
+
+#darth {
+  display: none;
+}

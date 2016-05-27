@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BuyFlix</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+  <nav>
+    <ul>
+      <li><%= link_to "Movies", movies_path %></li>
+      <li><%= link_to "Directors", directors_path %></li>
+      <li><%= link_to "Actors", actors_path %></li>
+      <li><%= link_to "Users", users_path %></li>
+      <%= form_tag movies_url, :method => :get do %>
+        <%= text_field_tag :keyword, '', placeholder: 'Search by title...' %>
+      <% end %>
+    </ul>
+    <ul class="nav-right">
+      <% if session["user_id"].present? %>
+        <% current_user = User.find_by(id: session["user_id"]) %>
+        <li>Hello, <%= link_to current_user.name, user_path(current_user) %>!</li>
+        <li><%= link_to "Sign Out", logout_path %></li>
+      <% else %>
+        <li><%= link_to "Sign Up", new_user_path %></li>
+        <li><%= link_to "Sign In", login_path %></li>
+      <% end %>
+    </ul>
+  </nav>
+
+  <div class="container">
+
+    <% if flash["notice"].present? %>
+      <p><%= flash["notice"] %></p>
+    <% end %>
+
+    <%= yield %>
+
+  </div>
+
+</body>
+</html>

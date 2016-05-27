@@ -1,0 +1,23 @@
+
+<% if session[:user_id] %>
+  <h3>Add a Review</h3>
+  <%= form_tag "/reviews", id: 'reviews_form' do |f| %>
+    <%= hidden_field_tag :movie_id, @movie.id %>
+
+    <div><%= label_tag :body, "What did you think of this movie?" %></div>
+    <div><%= select_tag :rating, options_for_select(["1 star", '2 stars', '3 stars', '4 stars']) %></div>
+    <div><%= text_area_tag :content, nil, rows: 4, cols: 50 %></div>
+
+    <%= submit_tag "Add Review" %>
+  <% end %>
+<% else %>
+  <p><em>Please <%= link_to "sign in", login_path %> to write a review!</em></p>
+<% end %>
+
+<h3>Reviews</h3>
+<div id="reviews">
+  <% @movie.reviews.each do |r| %>
+    <%= render 'reviews/review', review: r %>
+  <% end %>
+</div>
+<!-- html entitiy for a filled star: &#9733; -->

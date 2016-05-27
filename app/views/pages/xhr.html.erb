@@ -1,0 +1,67 @@
+<!--  Learn how to use jQuery to invoke asynchronous web services -->
+
+<!-- Change this page so that you get the weather for your current location. -->
+<!-- Display the current conditions on the page. -->
+
+<script>
+  $(function() {
+    $("#movie_title").on("click", function(event) {
+      getRandomMovieTitle();
+    });
+
+    $("#weather").on("click", function(event) {
+      event.preventDefault();
+      getWeather();
+    })
+  });
+</script>
+
+<p>
+  Random movie title: <span id="movie_title"><%= Movie.sample.title %></span>
+</p>
+
+<p><a id="weather" href="http://www.wunderground.com/">Get Weather</a></p>
+<div id="weather_results"></div>
+
+<script type="text/javascript">
+  api_key = "a65d37c3f4845b5e43e50756c1ed1240"
+  // weather_url = "http://api.openweathermap.org/data/2.5/weather?q=Chicago,US&APIKEY=4ce6f502d38ddae567bf1702b05e168c&units=imperial"
+
+  // weather_url = 'https://api.forecast.io/forecast/a65d37c3f4845b5e43e50756c1ed1240/41.9022,-87.6726'
+  weather_url = "/pages/weather"
+
+  function getWeather() {
+    $.ajax({
+          url: weather_url,
+          success: function(response) {
+            console.log(response);
+            $("#weather_results").html("It is currently " + response["currently"]["temperature"] + " degrees.")
+            // TO DO: Display the current temperature on the page
+          }
+        });
+    return false;
+  }
+
+  function getRandomMovieTitle() {
+    var startId = <%= Movie.first.id %>;
+    var endId = <%= Movie.last.id %>;
+    var randomMovieId = getRandomIntInclusive(startId, endId);
+    var movie_url = "/movies/" + randomMovieId + ".json"
+
+    $.ajax({
+      url: movie_url,
+      type: 'GET',
+      success: function(obj) {
+        console.log(obj);
+        $("#movie_title").html(obj.title);
+      }
+    })
+  }
+
+  // Returns a random integer between min (included) and max (included)
+  function getRandomIntInclusive(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+</script>
+
+<!-- Extra Challenge: Can you use the forecast.io API to get the weather at your current location? -->

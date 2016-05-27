@@ -1,0 +1,27 @@
+<!-- Learn how to invoke asynchronous functions -->
+
+<p>
+  Click the button to see your coordinates.
+  <button onclick="getLocation()">Where Am I?</button>
+</p>
+
+<div id="demo">
+</div>
+
+<script>
+
+  function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        outputDiv.innerHTML = "Geolocation is not supported by this browser.";
+    }
+  }
+
+  function showPosition(position) {
+    var outputDiv = document.getElementById("demo");
+    outputDiv.innerHTML = "You are at: " + position.coords.latitude + ", " + position.coords.longitude
+    console.log(position)
+  }
+
+</script>

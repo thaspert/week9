@@ -1,0 +1,18 @@
+<div class="details">
+
+  <p><%= image_tag @movie.image_url, class: 'pull-right' %></p>
+
+  <p><strong>Directed By: </strong>
+    <%= link_to @movie.director.name, "/directors/#{@movie.director.id}" %>
+  </p>
+
+  <p><strong>Released:</strong> <%= @movie.year %></p>
+  <p><strong>Plot:</strong> <%= @movie.plot %></p>
+
+  <p><strong>Actors: </strong></p>
+  <ul>
+    <% @movie.actors.each do |actor| %>
+      <li><%= link_to actor.name, "/actors/#{actor.id}" %></li>
+    <% end %>
+  </ul>
+</div>
