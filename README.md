@@ -1,4 +1,4 @@
-# Week 8
+# Week 9
 
 To run this Rails app on your laptop:
 
@@ -7,24 +7,21 @@ To run this Rails app on your laptop:
 1. rake db:migrate rake db:seed
 1. rails server
 
-The theme of tonight's class is *client-side magic*.
+The theme of tonight's class is *Ajax*.
 
 ## ActiveRecord Details
 
-* Boolean columns
-* The `:dependent` option for `has_many` assocations
-* Limits and Pagination
+* Multi-model joins
+* Model-vs.-HTTP Security ("strong parameters")
 
 
-## Introduction to Javascript
 
-First, you should know that Javascript is a horrible language.  But, it currently provides an important
-substrate in every web application, so we should get familiar with it.
+## Introduction to Ajax
 
-More recent Javascript versions are called ES5, ES2015, ES6, and CoffeeScript.  They attempt to improve
-the language, with some success.
+Here's my 3-step recipe for turning any form/link into an "ajax" action:
 
-We will learn some "raw" Javascript, though most web devs don't know much raw Javascript.  They use code libraries
-that provide a higher level of abstraction.  We will look at jQuery, the most popular of these.
+1. Add `remote: true` to the link or form tag
+2. In your controller, respond to js requests
+3. Create a js.erb view for your Javascript response
 
-Go to http://localhost:3000/pages to start the Javascript tutorial for tonight.
+Rails will automatically `eval()` the Javascript in your response.
