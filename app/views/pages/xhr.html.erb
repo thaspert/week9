@@ -33,6 +33,7 @@
   function getWeather() {
     $.ajax({
           url: weather_url,
+          accept: 'application/js'
           success: function(response) {
             console.log(response);
             $("#weather_results").html("It is currently " + response["currently"]["temperature"] + " degrees.")

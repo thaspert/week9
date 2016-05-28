@@ -1,9 +1,6 @@
-
-&#9733;
-
 <% if session[:user_id] %>
   <h3>Add a Review</h3>
-  <%= form_for Review.new(movie_id: @movie.id), id: 'reviews_form' do |f| %>
+  <%= form_for Review.new(movie_id: @movie.id), id: 'reviews_form', remote: true do |f| %>
     <%= f.hidden_field :movie_id %>
 
     <div><%= f.label :body, "What did you think of this movie?" %></div>
