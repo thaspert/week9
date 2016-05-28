@@ -2,5 +2,5 @@
   <hr>
   <p><strong><%= review.user.name %> said: <%= review.rating %> stars</strong></p>
   <p><%= review.content %></p>
-  <p><%= link_to "(delete)", review, method: :delete %>
+  <p><%= link_to "(delete)", review, method: :delete, remote: true %>
 </div>

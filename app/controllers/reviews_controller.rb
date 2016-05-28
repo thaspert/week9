@@ -1,5 +1,17 @@
 class ReviewsController < ApplicationController
 
+  def destroy
+    @review = Review.find_by(id: params[:id])
+
+    respond_to do |format|
+      format.html do
+        redirect_to movie_url(@review.movie)
+      end
+      format.js do
+      end
+    end
+  end
+
   def create
 
     # Review.new(....)
