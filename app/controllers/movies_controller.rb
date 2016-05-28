@@ -1,12 +1,20 @@
 class MoviesController < ApplicationController
 
+  before_action :find_movie, :except => [:index, :create]
+
+  def find_movie
+    @movie = Movie.find_by(id: params[:id])
+  end
+
   def index
     @movies = Movie.all
     if params[:keyword].present?
-      @movies = @movies.where("title LIKE ? OR year = ?", "%#{params[:keyword]}%", params[:keyword])
+      @movies = @movies.joins(:actors).where("title LIKE ? OR year = ? OR actors.name LIKE ?",
+                                             "%#{params[:keyword]}%", params[:keyword],
+                                             "%#{params[:keyword]}%")
     end
     @movies = @movies.limit(100)
-    
+
     respond_to do |format|
       format.html do
         render 'index'
@@ -37,7 +45,6 @@ class MoviesController < ApplicationController
   end
 
   def show
-    @movie = Movie.find_by(id: params[:id])
     if @movie == nil
       redirect_to movies_url
     end
@@ -56,23 +63,20 @@ class MoviesController < ApplicationController
   end
 
   def edit
-    @movie = Movie.find_by(id: params[:id])
   end
 
   def update
-    movie = Movie.find_by(id: params[:id])
-    movie.title = params[:title]
-    movie.plot = params[:plot]
-    movie.image_url = params[:image_url]
-    movie.year = params[:year]
-    movie.save
+    @movie.title = params[:title]
+    @movie.plot = params[:plot]
+    @movie.image_url = params[:image_url]
+    @movie.year = params[:year]
+    @movie.save
     redirect_to movies_url(@movie)
   end
 
   def destroy
-    movie = Movie.find_by(id: params[:id])
-    if movie
-      movie.delete
+    if @movie
+      @movie.delete
     end
     redirect_to movies_url
   end
